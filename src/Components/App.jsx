@@ -1,7 +1,9 @@
 import { Component } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import ContactAddForm from './ContactAddForm/ContactAddForm'
 import ContactListItem from './ContactListItem/ContactListItem'
+import ContactList from './ContactList/ContactList'
+import Filter from './Filter/Filter'
+import { v4 as uuidv4 } from 'uuid'
 
 export default class App extends Component {
   state = {
@@ -12,37 +14,23 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   }
 
-  handleChange = (e) => {
-    const { name, value } = e.target
+  addContact = ({ name, number }) => {
+    this.setState((prevState) => ({
+      contacts: [
+        ...prevState.contacts,
+        { id: uuidv4(), name: name, number: number },
+      ],
+    }))
+  }
+
+  handleFilterChange = ({ target }) => {
+    const filterInput = target.value
     this.setState({
-      [name]: value,
+      filter: filterInput,
     })
   }
-
-  // handleNameChange = ({ target }) => {
-  //   const nameInput = target.value
-  //   this.setState({
-  //     name: nameInput,
-  //   })
-  // }
-
-  // handlePhoneChange = ({ target }) => {
-  //   const PhoneInput = target.value
-  //   this.setState({
-  //     number: PhoneInput,
-  //   })
-  // }
-
-  // handleFilterChange = ({ target }) => {
-  //   const filterInput = target.value
-  //   this.setState({
-  //     filter: filterInput,
-  //   })
-  // }
 
   getFilteredNames = () => {
     const { filter, contacts } = this.state
@@ -53,25 +41,8 @@ export default class App extends Component {
     )
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-
-    const { name, number } = this.state
-
-    this.setState((prevState) => ({
-      contacts: [
-        ...prevState.contacts,
-        { id: uuidv4(), name: name, number: number },
-      ],
-    }))
-    this.setState({
-      name: '',
-      number: '',
-    })
-  }
-
   render() {
-    const { name, number, filter } = this.state
+    const { filter } = this.state
 
     const filteredContactNames = this.getFilteredNames()
 
@@ -79,34 +50,20 @@ export default class App extends Component {
       <>
         <h2>Phonebook</h2>
 
-        <ContactAddForm
-          handleSubmit={this.handleSubmit}
-          name={name}
-          handleChange={this.handleChange}
-          number={number}
-        />
+        <ContactAddForm onSubmit={this.addContact} />
 
         <h2>Contacts</h2>
 
-        <label>
-          Find contacts by name
-          <input
-            type="text"
-            name="filter"
-            value={filter}
-            onChange={this.handleChange}
-          ></input>
-        </label>
+        <Filter
+          filter={filter}
+          handleFilterChange={this.handleFilterChange}
+        ></Filter>
 
-        <ul>
-          {filteredContactNames.map((contact) => (
-            <ContactListItem
-              key={contact.id}
-              name={contact.name}
-              number={contact.number}
-            />
+        <ContactList>
+          {filteredContactNames.map(({ id, name, number }) => (
+            <ContactListItem key={id} name={name} number={number} />
           ))}
-        </ul>
+        </ContactList>
       </>
     )
   }
