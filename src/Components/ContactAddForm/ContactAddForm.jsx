@@ -1,5 +1,25 @@
 import React, { Component } from 'react'
 import ContactAddFormEl from './ContactAddForm.styled'
+import PropTypes from 'prop-types'
+
+const styles = {
+  input: {
+    display: 'block',
+    marginBottom: '10px',
+    marginTop: '5px',
+  },
+  label: {
+    marginBottom: '10px',
+  },
+  button: {
+    width: '100px',
+    fontSize: '12px',
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    border: '1px solid gray',
+    cursor: 'pointer',
+  },
+}
 
 export default class ContactAddForm extends Component {
   state = {
@@ -27,9 +47,10 @@ export default class ContactAddForm extends Component {
     const { name, number } = this.state
     return (
       <ContactAddFormEl onSubmit={this.handleSubmit}>
-        <label>
+        <label style={styles.label}>
           Name
           <input
+            style={styles.input}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -39,9 +60,10 @@ export default class ContactAddForm extends Component {
             onChange={this.handleChange}
           />
         </label>
-        <label>
+        <label style={styles.label}>
           Number
           <input
+            style={styles.input}
             type="tel"
             name="number"
             required
@@ -49,8 +71,17 @@ export default class ContactAddForm extends Component {
             onChange={this.handleChange}
           ></input>
         </label>
-        <button type="submit">Add Contact</button>
+        <button type="submit" style={styles.button}>
+          Add Contact
+        </button>
       </ContactAddFormEl>
     )
   }
+}
+
+ContactAddForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  name: PropTypes.string,
+  number: PropTypes.string,
+  handleChange: PropTypes.func,
 }

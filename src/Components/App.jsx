@@ -17,12 +17,17 @@ export default class App extends Component {
   }
 
   addContact = ({ name, number }) => {
-    this.setState((prevState) => ({
-      contacts: [
-        ...prevState.contacts,
-        { id: uuidv4(), name: name, number: number },
-      ],
-    }))
+    const contactsHaveDuplicate = this.state.contacts.find(
+      (contact) => contact.name === name,
+    )
+    contactsHaveDuplicate
+      ? alert(`${name} is already in contacts`)
+      : this.setState((prevState) => ({
+          contacts: [
+            ...prevState.contacts,
+            { id: uuidv4(), name: name, number: number },
+          ],
+        }))
   }
 
   handleFilterChange = ({ target }) => {
@@ -39,6 +44,14 @@ export default class App extends Component {
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normilizedFilterState),
     )
+  }
+
+  deleteContact = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter(
+        (contact) => contact.id !== contactId,
+      ),
+    }))
   }
 
   render() {
@@ -61,7 +74,12 @@ export default class App extends Component {
 
         <ContactList>
           {filteredContactNames.map(({ id, name, number }) => (
-            <ContactListItem key={id} name={name} number={number} />
+            <ContactListItem
+              key={id}
+              name={name}
+              number={number}
+              onDelBtnClick={() => this.deleteContact(id)}
+            />
           ))}
         </ContactList>
       </>
