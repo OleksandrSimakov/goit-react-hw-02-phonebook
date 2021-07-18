@@ -16,26 +16,33 @@ export default class App extends Component {
     number: '',
   }
 
-  handleNameChange = ({ target }) => {
-    const nameInput = target.value
+  handleChange = (e) => {
+    const { name, value } = e.target
     this.setState({
-      name: nameInput,
+      [name]: value,
     })
   }
 
-  handlePhoneChange = ({ target }) => {
-    const PhoneInput = target.value
-    this.setState({
-      number: PhoneInput,
-    })
-  }
+  // handleNameChange = ({ target }) => {
+  //   const nameInput = target.value
+  //   this.setState({
+  //     name: nameInput,
+  //   })
+  // }
 
-  handleFilterChange = ({ target }) => {
-    const filterInput = target.value
-    this.setState({
-      filter: filterInput,
-    })
-  }
+  // handlePhoneChange = ({ target }) => {
+  //   const PhoneInput = target.value
+  //   this.setState({
+  //     number: PhoneInput,
+  //   })
+  // }
+
+  // handleFilterChange = ({ target }) => {
+  //   const filterInput = target.value
+  //   this.setState({
+  //     filter: filterInput,
+  //   })
+  // }
 
   getFilteredNames = () => {
     const { filter, contacts } = this.state
@@ -48,10 +55,13 @@ export default class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+
+    const { name, number } = this.state
+
     this.setState((prevState) => ({
       contacts: [
         ...prevState.contacts,
-        { name: this.state.name, id: uuidv4(), number: this.state.number },
+        { id: uuidv4(), name: name, number: number },
       ],
     }))
     this.setState({
@@ -72,9 +82,8 @@ export default class App extends Component {
         <ContactAddForm
           handleSubmit={this.handleSubmit}
           name={name}
-          handleNameChange={this.handleNameChange}
+          handleChange={this.handleChange}
           number={number}
-          handlePhoneChange={this.handlePhoneChange}
         />
 
         <h2>Contacts</h2>
@@ -85,7 +94,7 @@ export default class App extends Component {
             type="text"
             name="filter"
             value={filter}
-            onChange={this.handleFilterChange}
+            onChange={this.handleChange}
           ></input>
         </label>
 

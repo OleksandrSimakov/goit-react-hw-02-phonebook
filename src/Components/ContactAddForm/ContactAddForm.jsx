@@ -1,12 +1,6 @@
 import ContactAddFormEl from './ContactAddForm.styled'
 
-function ContactAddForm({
-  handleSubmit,
-  name,
-  handleNameChange,
-  number,
-  handlePhoneChange,
-}) {
+function ContactAddForm({ handleSubmit, name, handleChange, number }) {
   return (
     <ContactAddFormEl onSubmit={handleSubmit}>
       <label>
@@ -18,20 +12,20 @@ function ContactAddForm({
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
           value={name}
-          onChange={handleNameChange}
+          onChange={handleChange}
         />
       </label>
       <label>
         Number
         <input
           type="tel"
-          name="tel"
+          name="number"
           required
           value={number}
-          onChange={handlePhoneChange}
+          onChange={handleChange}
         ></input>
       </label>
-      <button>Add Contact</button>
+      <button type="submit">Add Contact</button>
     </ContactAddFormEl>
   )
 }
