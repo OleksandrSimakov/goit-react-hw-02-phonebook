@@ -85,3 +85,10 @@ ContactAddForm.propTypes = {
   number: PropTypes.string,
   handleChange: PropTypes.func,
 }
+
+ContactAddForm.defaultProps = {
+  name: null,
+  number: null,
+  handleSubmit: () => null,
+  handleChange: () => null,
+}

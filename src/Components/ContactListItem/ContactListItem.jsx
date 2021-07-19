@@ -36,4 +36,11 @@ ContactListItem.propTypes = {
   handleChange: PropTypes.func,
 }
 
+ContactListItem.defaultProps = {
+  name: null,
+  number: null,
+  handleSubmit: () => null,
+  handleChange: () => null,
+}
+
 export default ContactListItem
