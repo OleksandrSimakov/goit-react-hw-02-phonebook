@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ContactAddFormEl from './ContactAddForm.styled'
+import PropTypes from 'prop-types'
 
 const styles = {
   input: {
@@ -21,6 +22,10 @@ const styles = {
 }
 
 export default class ContactAddForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  }
+
   state = {
     name: '',
     number: '',
