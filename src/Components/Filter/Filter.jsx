@@ -1,4 +1,5 @@
 import FilterEl from './Filter.styled'
+import PropTypes from 'prop-types'
 
 const styles = {
   input: {
@@ -22,6 +23,16 @@ function Filter({ filter, handleFilterChange }) {
       </label>
     </FilterEl>
   )
+}
+
+Filter.propTypes = {
+  filter: PropTypes.string,
+  handleFilterChange: PropTypes.func,
+}
+
+Filter.defaultProps = {
+  filter: null,
+  handleFilterChange: null,
 }
 
 export default Filter

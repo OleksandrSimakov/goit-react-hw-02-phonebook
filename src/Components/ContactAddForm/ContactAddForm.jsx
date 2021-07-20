@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ContactAddFormEl from './ContactAddForm.styled'
-import PropTypes from 'prop-types'
 
 const styles = {
   input: {
@@ -77,18 +76,4 @@ export default class ContactAddForm extends Component {
       </ContactAddFormEl>
     )
   }
-}
-
-ContactAddForm.propTypes = {
-  handleSubmit: PropTypes.func,
-  name: PropTypes.string,
-  number: PropTypes.string,
-  handleChange: PropTypes.func,
-}
-
-ContactAddForm.defaultProps = {
-  name: null,
-  number: null,
-  handleSubmit: () => null,
-  handleChange: () => null,
 }

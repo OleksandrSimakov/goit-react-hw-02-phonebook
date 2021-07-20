@@ -30,17 +30,15 @@ function ContactListItem({ name, number, onDelBtnClick }) {
 }
 
 ContactListItem.propTypes = {
-  handleSubmit: PropTypes.func,
+  onDelBtnClick: PropTypes.func,
   name: PropTypes.string,
   number: PropTypes.string,
-  handleChange: PropTypes.func,
 }
 
 ContactListItem.defaultProps = {
   name: null,
   number: null,
-  handleSubmit: () => null,
-  handleChange: () => null,
+  onDelBtnClick: () => null,
 }
 
 export default ContactListItem
